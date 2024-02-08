@@ -27,6 +27,9 @@ const CustomNav = () => {
               <NavLink href="/logout">
                 Logout
               </NavLink>
+              <NavLink href="/login">
+                Login
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

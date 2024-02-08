@@ -4,6 +4,7 @@ import { userData } from '../../helpers'
 
 const Home = () => {
   const {username} = userData()
+  console.log(username)
   return (
     <div>
       <CustomNav />

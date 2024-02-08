@@ -1,9 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Home from "./components/Home";
 import { Container } from "reactstrap";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import {ToastContainer, toast} from 'react-toastify';
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/" element={<Registration />} />
+          <Route path="/registration" element={<Registration />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </Container>
   );
 }
