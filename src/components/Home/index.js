@@ -3,8 +3,7 @@ import CustomNav from '../CustomNav'
 import { userData } from '../../helpers'
 
 const Home = () => {
-  const {username} = userData()
-  console.log(username)
+  const {username} = userData() || {}
   return (
     <div>
       <CustomNav />
