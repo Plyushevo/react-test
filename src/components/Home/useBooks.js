@@ -7,7 +7,7 @@ export const useBooks = () => {
 
   const showBooks = async() => {
     try {
-      const {data: {data}} = await axios.get('http://localhost:1337/api/books')
+      const {data: {data}} = await axios.get('http://81.200.149.55:1337/api/books')
         console.log({data})
     } catch (error) {
       console.log(error)

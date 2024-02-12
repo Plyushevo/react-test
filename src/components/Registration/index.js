@@ -11,7 +11,7 @@ const Registration = () => {
   
   const signUp = async() => {
     try {
-      const url = 'http://localhost:1337/api/auth/local/register'
+      const url = 'http://81.200.149.55:1337/api/auth/local/register'
       if (user.username && user.email && user.password) {
         const res = await axios.post(url, user);
         if (res) {
