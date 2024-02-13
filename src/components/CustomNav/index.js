@@ -16,7 +16,7 @@ const CustomNav = () => {
 
   return (
     <div>
-      <Navbar color="faded" light>
+      <Navbar color="faded" light expand='md'>
         <NavbarBrand href="/" className="me-auto">
           Varia library App
         </NavbarBrand>
