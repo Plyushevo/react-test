@@ -18,11 +18,12 @@ const Login = () => {
     }))
   }
   const handleLogin = async () => {
-    const url = 'http://81.200.149.55:1337/api/auth/local'
+    const url = 'http://localhost:1337/api/auth/local'
     try {
       if (user.identifier && user.password) {
         const {data} = await axios.post(url, user)
         if (data.jwt) {
+          console.log('user: ', user)
           storeUser(data)
           toast.success('Logged in succesfully', {
             hideProgressBar: true,

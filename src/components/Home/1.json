@@ -1,38 +1,52 @@
-{"id":4,
-"attributes":
-  {"title":"The Great Gatsby",
-  "description":"Этот роман описывает жизнь и обычаи американской высшей среды в 1920-х годах, с фокусом на темах любви, иллюзий и декаданса.",
-  "taken":true,
-  "createdAt":"2024-02-12T11:28:09.929Z","updatedAt":"2024-02-12T11:28:10.800Z","publishedAt":"2024-02-12T11:28:10.798Z",
-  "cover":
-    {"data":
-      [{"id":2,
-      "attributes":
-        {"name":"248596.jpg",
-        "alternativeText":null,
-        "caption":null,
-        "width":241,
-        "height":400,
-        "formats":
-          {"thumbnail":
-            {"name":"thumbnail_248596.jpg","hash":"thumbnail_248596_f1b37ca073",
-            "ext":".jpg",
-            "mime":"image/jpeg",
-            "path":null,
-            "width":94,
-            "height":156,
-            "size":4.78,
-            "url":"/uploads/thumbnail_248596_f1b37ca073.jpg"}
-          },
-        "hash":"248596_f1b37ca073",
-        "ext":".jpg",
-        "mime":"image/jpeg",
-        "size":21.56,
-        "url":"/uploads/248596_f1b37ca073.jpg",
-        "previewUrl":null,
-        "provider":"local",
-        "provider_metadata":null,
-        "createdAt":"2024-02-12T11:27:12.435Z",
-        "updatedAt":"2024-02-12T11:27:12.435Z"}
-      }]}}}],
-      "meta":{"pagination":{"page":1,"pageSize":25,"pageCount":1,"total":4}}}
+{
+  "data": [
+    {
+      "id": 7,
+      "attributes": {
+        "title": "title",
+        "createdAt": "2024-02-25T12:03:14.201Z",
+        "updatedAt": "2024-02-25T12:03:14.201Z",
+        "publishedAt": "2024-02-25T12:03:14.200Z",
+        "description": "description"
+      }
+    },
+    {
+      "id": 8,
+      "attributes": {
+        "title": "title 2",
+        "createdAt": "2024-02-25T12:03:23.992Z",
+        "updatedAt": "2024-02-25T12:03:23.992Z",
+        "publishedAt": "2024-02-25T12:03:23.988Z",
+        "description": "description 2"
+      }
+    },
+    {
+      "id": 9,
+      "attributes": {
+        "title": "title 3",
+        "createdAt": "2024-02-25T12:03:31.801Z",
+        "updatedAt": "2024-02-25T12:03:31.801Z",
+        "publishedAt": "2024-02-25T12:03:31.801Z",
+        "description": "description 3"
+      }
+    },
+    {
+      "id": 14,
+      "attributes": {
+        "title": "try to create",
+        "createdAt": "2024-02-25T15:25:37.384Z",
+        "updatedAt": "2024-02-25T15:25:37.384Z",
+        "publishedAt": "2024-02-25T15:25:37.383Z",
+        "description": ""
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 4
+    }
+  }
+}
