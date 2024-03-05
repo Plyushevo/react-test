@@ -1,17 +1,13 @@
 // LoanForm.js
 import React, { useState, useEffect } from "react";
 import { Container } from "reactstrap";
-// import LoanItem from "./LoanItem";
 import { useBooks } from "./useBooks";
 
-const LoanForm = () => {
-  const [loans, setLoans] = useState([]);
+const LoanForm = ({ onLoanAdded }) => {
   const [bookId, setBookId] = useState("");
-  const [newDescription, setNewDescription] = useState("");
   const tokenString = localStorage.getItem('user');
   const token = JSON.parse(tokenString);
   const transactionApiUrl = 'api/transactions/' 
-  const mytransactionApiUrl = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*'
   const { updateBooks }= useBooks()
   
   
@@ -38,7 +34,7 @@ const LoanForm = () => {
     }).then(() => {
       console.log(token.jwt);
       setBookId("");
-      updateBooks()
+      onLoanAdded();
       console.log('updateBooks function called')
     });
   }

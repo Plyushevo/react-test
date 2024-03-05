@@ -8,11 +8,18 @@ const Home = () => {
 
   const {books, updateBooks} = useBooks()
   const {username} = userData() || {}
-  console.log('my books on frontpage:',{books})
 
   useEffect(() => {
-    updateBooks(); 
-  }, [books]);
+    updateBooks();
+    console.log('my books useEffect:',{books}); 
+  }, []);
+
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+    return formattedDate;
+  }
 
   return (
     <div>
@@ -24,19 +31,18 @@ const Home = () => {
           <div key={item.id}>
             <h3>{item.book.book.title}</h3>
             <p>{item.book.book.description}</p>
-            <h4>Return date: {item.returnDate}</h4>
             {item.book.book.cover && item.book.book.cover[0] ? (
               <img style={{maxHeight: '200px' }} src={`http://localhost:1337${item.book.book.cover[0].url}`} alt={item.book.title} />
-            ) : (
-              <p>No cover available</p>
-            )}
-            <p>Status: {item.open ? 'Taken' : 'Available'}</p>
+              ) : (
+                <p>No cover available</p>
+                )}
+            <p>Status: {item.open ? 'Taken' : 'Available'}; loan date: {formatDate(item.publishedAt)} return date: {item.returnDate}</p>
           </div>
         ))
       ) : (
         <p>No loaned books yet</p>
       )}
-      <LoanForm/>
+      <LoanForm onLoanAdded={updateBooks}/>
     </div>
   )
   
