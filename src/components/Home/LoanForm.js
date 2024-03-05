@@ -1,47 +1,34 @@
 // LoanForm.js
 import React, { useState, useEffect } from "react";
 import { Container } from "reactstrap";
-import LoanItem from "./LoanItem";
+// import LoanItem from "./LoanItem";
+import { useBooks } from "./useBooks";
 
 const LoanForm = () => {
   const [loans, setLoans] = useState([]);
-  const [newLoan, setNewLoan] = useState("");
+  const [bookId, setBookId] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const tokenString = localStorage.getItem('user');
   const token = JSON.parse(tokenString);
-
+  const transactionApiUrl = 'api/transactions/' 
+  const mytransactionApiUrl = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*'
+  const { updateBooks }= useBooks()
   
-  useEffect(() => {
-    update();
-  }, []);
+  
 
-  function update() {
-    fetch(`${process.env.REACT_APP_BACKEND}api/test-posts/?populate=*`, {
-      headers: {
-        "Authorization": `Bearer ${token.jwt}`
-      }
-    })
-      .then((res) => res.json())
-      .then((loan) => {
-        console.log(loan);
-        setLoans(loan.data);
-      });
-  }
 
   function addLoan(e) {
     e.preventDefault();
-    let title = newLoan;
-    let description = newDescription;
+    let book = bookId;
     let body = {
       data: {
-        title,
-        description,
+        book,
         
       },
     };
 
 
-    fetch(`${process.env.REACT_APP_BACKEND}api/test-posts/`, {
+    fetch(`${process.env.REACT_APP_BACKEND}${transactionApiUrl}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -50,9 +37,9 @@ const LoanForm = () => {
       body: JSON.stringify(body),
     }).then(() => {
       console.log(token.jwt);
-      setNewLoan("");
-      setNewDescription("");
-      update();
+      setBookId("");
+      updateBooks()
+      console.log('updateBooks function called')
     });
   }
 
@@ -62,25 +49,14 @@ const LoanForm = () => {
         <form className="form" onSubmit={addLoan}>
           <input
             type="text"
-            placeholder="Enter new title"
-            value={newLoan}
-            onChange={(e) => setNewLoan(e.currentTarget.value)}
-          />
-          <input
-            type="text"
-            placeholder="Enter new description"
-            value={newDescription}
-            onChange={(e) => setNewDescription(e.currentTarget.value)}
+            placeholder="Enter a book ID"
+            value={bookId}
+            onChange={(e) => setBookId(e.currentTarget.value)}
           />
           <button type="submit" className="todo_button">
-            Add todo
+            Loan book
           </button>
         </form>
-        <div>
-          {loans && loans.map((loan, i) => {
-            return <LoanItem loan={loan} key={i} update={update} />;
-          })}
-        </div>
       </div>
     </Container>
   );

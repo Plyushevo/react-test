@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import {ToastContainer, toast} from 'react-toastify';
 import { Protector } from "./helpers";
-import LoanItem from './components/Home/LoanItem';
+// import LoanItem from './components/Home/LoanItem';
 import { useEffect, useState } from "react";
 
 function App() {
