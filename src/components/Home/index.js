@@ -3,6 +3,8 @@ import CustomNav from '../CustomNav'
 import { userData } from '../../helpers'
 import { useBooks } from './useBooks.js'
 import LoanForm from './LoanForm.js'
+import { fetchTransactionData, closeTransaction, createNewTransaction } from '../../helpers';
+
 
 const Home = () => {
 
@@ -21,6 +23,24 @@ const Home = () => {
     return formattedDate;
   }
 
+
+
+// Ваш код компонента, где вы используете сканер QR-кода
+const handleQRCodeScan = () => {
+  fetchTransactionData()
+    .then(data => {
+      if (data && data.data && data.data.length > 0) {
+        closeTransaction(data.data[0]);
+      } else {
+        createNewTransaction();
+      }
+    })
+    .catch(error => {
+      // Обработка ошибок при выполнении запроса
+    });
+};
+
+
   return (
     <div>
       <CustomNav />
@@ -30,6 +50,7 @@ const Home = () => {
         books.map((item, index) => (
           <div key={item.id}>
             <h3>{item.book.book.title}</h3>
+            {console.log(item)}
             <p>{item.book.book.description}</p>
             {item.book.book.cover && item.book.book.cover[0] ? (
               <img style={{maxHeight: '200px' }} src={`http://localhost:1337${item.book.book.cover[0].url}`} alt={item.book.title} />

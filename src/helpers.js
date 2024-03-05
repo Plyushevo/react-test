@@ -36,3 +36,21 @@ export const Protector = ({Component}) => {
   return <Component/>
 }
 
+export const fetchTransactionData = () => {
+  return fetch('http://localhost:1337/api/transactions?filters[book]=1&filters[open][$not]=true')
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Ошибка при получении данных о транзакции:', error);
+      throw error; 
+    });
+};
+
+// Функция для закрытия транзакции
+export const closeTransaction = (transactionData) => {
+  // Реализация закрытия транзакции
+};
+
+// Функция для создания новой транзакции
+export const createNewTransaction = () => {
+  // Реализация создания новой транзакции
+};
