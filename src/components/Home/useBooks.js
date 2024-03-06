@@ -26,6 +26,6 @@ export const useBooks = () => {
   const updateBooks = () => {
     fetchBooks();
   };
-
+  // console.log('my books useEffect:',{books})
   return {books, updateBooks}
 }
