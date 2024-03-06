@@ -5,10 +5,11 @@ export const useBooks = () => {
   const tokenString = localStorage.getItem('user');
   const token = JSON.parse(tokenString);
   const mytransactionApiUrl = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*'
+  const openTransactionsQuerry = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*&populate[transactions][filters][open]=true'
 
   
-  const fetchBooks =  () => {
-    fetch(`${process.env.REACT_APP_BACKEND}${mytransactionApiUrl}`, {
+  const fetchBooks = async () => {
+    fetch(`${process.env.REACT_APP_BACKEND}${openTransactionsQuerry}`, {
       headers: {
         "Authorization": `Bearer ${token.jwt}`
       }
@@ -26,6 +27,5 @@ export const useBooks = () => {
   const updateBooks = () => {
     fetchBooks();
   };
-  // console.log('my books useEffect:',{books})
   return {books, updateBooks}
 }

@@ -6,64 +6,29 @@ import { fetchTransactionData, closeTransaction, createTransaction } from '../..
 
 const LoanForm = ({ onLoanAdded}) => {
   const [bookId, setBookId] = useState("");
-  const tokenString = localStorage.getItem('user');
-  const token = JSON.parse(tokenString);
-  const transactionApiUrl = 'api/transactions/' 
-  const { updateBooks }= useBooks()
   
   const handleQRCodeScan = (e) => {
     e.preventDefault();
-    let book = bookId;
-    let body = {
-      data: {
-        book,
-      },
-    };
   
-    console.log('bookId on qrHandle: ', bookId)
-    console.log('body on qrHandle: ', body)
-    fetchTransactionData(book)
+    fetchTransactionData(bookId)
     .then(transactionId => {
       if (transactionId) {
         closeTransaction(transactionId, bookId);
         console.log('Transaction was closed');
+        onLoanAdded() 
       } else {
         createTransaction(bookId);
         console.log('Transaction was created');
+        onLoanAdded()
       }
     })
     .catch(error => {
       console.error('Error handling QR code scan:', error);
     });
-      
+    setBookId("")
+    onLoanAdded()
+    
   };
-
-
-  function addLoan(e) {
-    e.preventDefault();
-    let book = bookId;
-    let body = {
-      data: {
-        book,
-        
-      },
-    };
-
-
-    fetch(`${process.env.REACT_APP_BACKEND}${transactionApiUrl}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": `Bearer ${token.jwt}`
-      },
-      body: JSON.stringify(body),
-    }).then(() => {
-      console.log(token.jwt);
-      setBookId("");
-      onLoanAdded();
-      console.log('updateBooks function called')
-    });
-  }
 
   return (
     <Container>
