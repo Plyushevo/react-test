@@ -4,7 +4,7 @@ export const useBooks = () => {
   const [books, setBooks] = useState([])
   const tokenString = localStorage.getItem('user');
   const token = JSON.parse(tokenString);
-  const mytransactionApiUrl = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*'
+  // const mytransactionApiUrl = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*'
   const openTransactionsQuerry = 'api/users/me?populate[transactions][populate][book][populate][book][populate]=*&populate[transactions][filters][open]=true'
 
   

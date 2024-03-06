@@ -60,7 +60,7 @@ export const fetchTransactionData = (bookId) => {
     });
 };
 
-// Функция для закрытия транзакции
+
 export const closeTransaction = async (transactionId, bookId) => {
   const token = userData()
   

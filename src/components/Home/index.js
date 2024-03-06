@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CustomNav from '../CustomNav'
 import { userData } from '../../helpers'
 import { useBooks } from './useBooks.js'
@@ -10,12 +10,13 @@ const Home = () => {
 
   const {books, updateBooks} = useBooks()
   const {username} = userData() || {}
-
+  
   useEffect(() => {
     updateBooks();
     console.log('my books useEffect:',{books});
     // handleQRCodeScan(); 
   }, []);
+
 
 
   function formatDate(dateString) {
@@ -32,6 +33,7 @@ const Home = () => {
   return (
     <div>
       <CustomNav />
+
       <h2>Welcome {username}</h2>
       <h3 style={{ textAlign: 'center' }}>Your taken books:</h3>
       {books && books.length > 0 ? (
