@@ -53,6 +53,7 @@ const Home = () => {
       ) : (
         <p>No loaned books yet</p>
       )}
+      
       <LoanForm onLoanAdded={updateBooks} />
     </div>
   )

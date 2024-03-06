@@ -9,9 +9,9 @@ const LoanForm = ({ onLoanAdded}) => {
   const [bookId, setBookId] = useState("");
   const [scanResult, setScanResult] = useState(null)
 
+ 
+  function startScanner() {
   let html5QrCode
-  useEffect(() => {
-
     if(!html5QrCode?.getState()){
       html5QrCode = new Html5Qrcode('reader');
       const qrCodeSuccessCallback = (decodedText) => {
@@ -29,12 +29,7 @@ const LoanForm = ({ onLoanAdded}) => {
           qrCodeSuccessCallback
       );
   }
-
-  return () => {
-      // Anything in here is fired on component unmount.
-
-  };
-  },[])
+  }
   
 
 
@@ -71,12 +66,6 @@ const LoanForm = ({ onLoanAdded}) => {
 
       </div>
         <form className="form" onSubmit={handleQRCodeScan}>
-          <input
-            type="text"
-            placeholder="Enter a book ID"
-            value={bookId}
-            onChange={(e) => setBookId(e.currentTarget.value)}
-          />
           <button type="submit" className="todo_button">
             Loan book
           </button>
