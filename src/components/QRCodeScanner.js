@@ -48,7 +48,6 @@ const QRCodeScanner = ({updateBooks}) => {
   };
 
   return (
-    // <Container>
       <div>
         <div id="reader"></div>
         <form className="form" onSubmit={startScanner}>
@@ -60,7 +59,6 @@ const QRCodeScanner = ({updateBooks}) => {
           Cancel
         </button>
       </div>
-    // </Container>
   );
 };
 

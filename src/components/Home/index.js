@@ -23,7 +23,6 @@ const Home = () => {
       <h3 style={{ textAlign: 'center' }}>Your taken books:</h3>
       <BookList books={books} />
       <QRCodeScanner updateBooks={updateBooks}/>
-      {/* <LoanForm updateBooks={updateBooks} /> */}
     </div>
   )
   
