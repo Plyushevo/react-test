@@ -3,7 +3,7 @@ import { Col, Row, Button, FormGroup, Input} from 'reactstrap'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 import {ToastContainer, toast} from 'react-toastify';
-import { storeUser } from '../../helpers';
+import { storeUser } from '../helpers/userStorage';
 
 const initialUser = {password: "", identifier: ""}
 const Login = () => {

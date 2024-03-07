@@ -1,6 +1,6 @@
 import { Html5Qrcode } from "html5-qrcode";
 import { useState, useEffect, useRef } from "react";
-import { handleQRCodeScan } from "../helpers";
+import { handleQRCodeScan } from "./helpers/QRCodeHandler";
 
 const QRCodeScanner = ({updateBooks}) => {
   const html5QrCodeRef = useRef(null);

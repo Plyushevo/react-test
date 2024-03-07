@@ -5,7 +5,7 @@ import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import {ToastContainer, toast} from 'react-toastify';
-import { Protector } from "./helpers";
+import { Protector } from "./components/helpers/Protector";
 // import LoanItem from './components/Home/LoanItem';
 import { useEffect, useState } from "react";
 
