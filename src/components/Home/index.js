@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CustomNav from '../CustomNav'
 import { userData } from '../../helpers'
-import { useBooks } from './useBooks.js'
-import LoanForm from './LoanForm.js'
-
+import { useBooks } from '../hooks/useBooks.js'
+import BookList from '../BookList.js'
+import QRCodeScanner from "../QRCodeScanner.js";
 
 
 const Home = () => {
@@ -16,44 +16,14 @@ const Home = () => {
     console.log('my books useEffect:',{books});
   }, []);
 
-
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-    return formattedDate;
-  }
-
-
-
-
-
-
   return (
     <div>
       <CustomNav />
-
       <h2>Welcome {username}</h2>
       <h3 style={{ textAlign: 'center' }}>Your taken books:</h3>
-      {books && books.length > 0 ? (
-        books.map((item, index) => (
-          <div key={item.id}>
-            <h3>{item.book.book.title}</h3>
-            
-            <p>{item.book.book.description}</p>
-            {item.book.book.cover && item.book.book.cover[0] ? (
-              <img style={{maxHeight: '200px' }} src={`http://localhost:1337${item.book.book.cover[0].url}`} alt={item.book.title} />
-              ) : (
-                <p>No cover available</p>
-                )}
-            <p>Status: {item.open ? 'Taken' : 'Available'}; loan date: {formatDate(item.publishedAt)} return date: {item.returnDate}</p>
-          </div>
-        ))
-      ) : (
-        <p>No loaned books yet</p>
-      )}
-      
-      <LoanForm updateBooks={updateBooks} />
+      <BookList books={books} />
+      <QRCodeScanner updateBooks={updateBooks}/>
+      {/* <LoanForm updateBooks={updateBooks} /> */}
     </div>
   )
   

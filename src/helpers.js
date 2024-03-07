@@ -171,3 +171,23 @@ export const changeBookStatusReturned = async (bookId) => {
     throw error;
   }
 }
+
+
+
+export const handleQRCodeScan = async (decodedText, updateBooks) => {
+  fetchTransactionData(decodedText)
+    .then(transactionId => {
+      if (transactionId) {
+        closeTransaction(transactionId, decodedText);
+        console.log('Transaction was closed');
+        updateBooks();
+      } else {
+        createTransaction(decodedText);
+        console.log('Transaction was created');
+      }
+      updateBooks();
+    })
+    .catch(error => {
+      console.error('Error handling QR code scan:', error);
+    });
+};
