@@ -62,8 +62,8 @@ const LoanForm = ({ onLoanAdded }) => {
       .catch(error => {
         console.error('Error handling QR code scan:', error);
       });
-    setBookId("");
-    setScanResult("");
+    // setBookId("");
+    // setScanResult("");
   };
 
   const stopScanner = () => {
