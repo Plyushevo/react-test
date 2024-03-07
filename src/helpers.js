@@ -35,12 +35,11 @@ export const Protector = ({Component}) => {
 }
 
 export const fetchTransactionData = (bookId) => {
-  const token = userData()
-  console.log(token.jwt)
+  const { jwt } = userData()
   return fetch(`${process.env.REACT_APP_BACKEND}api/transactions?filters[book]=${bookId}&filters[open]=true`, {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token.jwt}`
+      "Authorization": `Bearer ${jwt}`
     }
   })
     .then(response => response.json())
@@ -62,7 +61,7 @@ export const fetchTransactionData = (bookId) => {
 
 
 export const closeTransaction = async (transactionId, bookId) => {
-  const token = userData()
+  const { jwt } = userData()
   
   try {
     const body = {
@@ -75,7 +74,7 @@ export const closeTransaction = async (transactionId, bookId) => {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token.jwt}`
+        "Authorization": `Bearer ${jwt}`
       },
       body: JSON.stringify(body),
     });
@@ -95,7 +94,7 @@ export const closeTransaction = async (transactionId, bookId) => {
 
 
 export const createTransaction = async (bookId) => {
-  const token = userData()
+  const { jwt } = userData()
   try {
     const body = {
       data: { book: bookId }
@@ -104,7 +103,7 @@ export const createTransaction = async (bookId) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token.jwt}`
+        "Authorization": `Bearer ${jwt}`
       },
       body: JSON.stringify(body),
     });
@@ -120,26 +119,26 @@ export const createTransaction = async (bookId) => {
   changeBookStatusTaken(bookId);
 };
 
-export const changeBookStatusTaken = async (bookId) => {
-  const token = userData()
+export const changeBookStatus = async (bookId, status) => {
+  const { jwt } = userData()
   try {
     const body = {
       data: {
-        taken: true,
+        taken: status === 'taken' ? true : false,
       }
     };
     const response = await fetch(`${process.env.REACT_APP_BACKEND}api/book-copies/${bookId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token.jwt}`
+        "Authorization": `Bearer ${ jwt }`
       },
       body: JSON.stringify(body),
     });
     if (!response.ok) {
-      throw new Error('Failed to create transaction');
+      throw new Error(`Failed to change book ${bookId} status to ${status}`);
     }
-    console.log('book status changed to taken')
+    console.log(`${bookId} status changed to ${status}`)
   } catch (error) {
     console.error('Error modifying book status:', error);
     throw error;
@@ -147,29 +146,10 @@ export const changeBookStatusTaken = async (bookId) => {
 }
 
 export const changeBookStatusReturned = async (bookId) => {
-  const token = userData()
-  try {
-    const body = {
-      data: {
-        taken: false,
-      }
-    };
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}api/book-copies/${bookId}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": `Bearer ${token.jwt}`
-      },
-      body: JSON.stringify(body),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to create transaction');
-    }
-    console.log('book status changed to returned')
-  } catch (error) {
-    console.error('Error modifying book status:', error);
-    throw error;
-  }
+  await changeBookStatus(bookId, 'returned')
+}
+export const changeBookStatusTaken = async (bookId) => {
+  await changeBookStatus(bookId, 'taken')
 }
 
 
