@@ -20,9 +20,9 @@ export const useBooks = () => {
        });
   }
 
-  useEffect(() => {
-    fetchBooks()
-  }, [])
+  // useEffect(() => {
+  //   fetchBooks()
+  // }, [])
 
   const updateBooks = () => {
     fetchBooks();

@@ -3,11 +3,10 @@ import { Container } from "reactstrap";
 import { fetchTransactionData, closeTransaction, createTransaction } from '../../helpers';
 import { Html5Qrcode } from "html5-qrcode";
 
-const LoanForm = ({ onLoanAdded }) => {
-  const [bookId, setBookId] = useState("");
-  const [scanResult, setScanResult] = useState(null);
+const LoanForm = ({ updateBooks }) => {
   const html5QrCodeRef = useRef(null);
   const [isScannerRunning, setIsScannerRunning] = useState(false);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
     html5QrCodeRef.current = new Html5Qrcode('reader');
@@ -19,13 +18,21 @@ const LoanForm = ({ onLoanAdded }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const fetchAndUpdateBooks = async () => {
+      const updatedBooks = await updateBooks();
+      setBooks(updatedBooks);
+    };
+  
+    fetchAndUpdateBooks();
+  }, []);
+
   const startScanner = (e) => {
     e.preventDefault();
     const html5QrCode = html5QrCodeRef.current;
 
     const qrCodeSuccessCallback = (decodedText) => {
       console.log('decoded text: ', decodedText);
-      setBookId(decodedText);
       html5QrCode.stop();
       setIsScannerRunning(false);
       handleQRCodeScan(decodedText);
@@ -46,24 +53,22 @@ const LoanForm = ({ onLoanAdded }) => {
     });
   };
 
-  const handleQRCodeScan = (decodedText) => {
+  const handleQRCodeScan = async (decodedText) => {
     fetchTransactionData(decodedText)
       .then(transactionId => {
         if (transactionId) {
           closeTransaction(transactionId, decodedText);
           console.log('Transaction was closed');
-          onLoanAdded();
+          updateBooks();
         } else {
           createTransaction(decodedText);
           console.log('Transaction was created');
-          onLoanAdded();
         }
+        updateBooks();
       })
       .catch(error => {
         console.error('Error handling QR code scan:', error);
       });
-    // setBookId("");
-    // setScanResult("");
   };
 
   const stopScanner = () => {
@@ -79,11 +84,11 @@ const LoanForm = ({ onLoanAdded }) => {
         <div id="reader"></div>
         <form className="form" onSubmit={startScanner}>
           <button type="submit" className="todo_button">
-            Loan book
+            Scan QR code
           </button>
         </form>
         <button type="button" onClick={stopScanner} className="todo_button">
-          Отмена
+          Cancel
         </button>
       </div>
     </Container>

@@ -14,7 +14,6 @@ const Home = () => {
   useEffect(() => {
     updateBooks();
     console.log('my books useEffect:',{books});
-    // handleQRCodeScan(); 
   }, []);
 
 
@@ -54,7 +53,7 @@ const Home = () => {
         <p>No loaned books yet</p>
       )}
       
-      <LoanForm onLoanAdded={updateBooks} />
+      <LoanForm updateBooks={updateBooks} />
     </div>
   )
   
