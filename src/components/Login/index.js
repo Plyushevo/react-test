@@ -3,7 +3,7 @@ import { Col, Row, Button, FormGroup, Input} from 'reactstrap'
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 import {ToastContainer, toast} from 'react-toastify';
-import { storeUser } from '../../helpers';
+import { storeUser } from '../helpers/userStorage';
 
 const initialUser = {password: "", identifier: ""}
 const Login = () => {
@@ -18,11 +18,12 @@ const Login = () => {
     }))
   }
   const handleLogin = async () => {
-    const url = 'http://81.200.149.55:1337/api/auth/local'
+    const url = 'http://localhost:1337/api/auth/local'
     try {
       if (user.identifier && user.password) {
         const {data} = await axios.post(url, user)
         if (data.jwt) {
+          console.log('user: ', user)
           storeUser(data)
           toast.success('Logged in succesfully', {
             hideProgressBar: true,

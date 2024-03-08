@@ -1,41 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import CustomNav from '../CustomNav'
-import { userData } from '../../helpers'
-import { useBooks } from './useBooks.js'
-import { Demo } from './test.tsx'
+import { userData } from '../helpers/userStorage.js'
+import { useBooks } from '../hooks/useBooks.js'
+import BookList from '../BookList.js'
+import QRCodeScanner from "../QRCodeScanner.js";
+
 
 const Home = () => {
-  const {books} = useBooks()
+
+  const {books, updateBooks} = useBooks()
   const {username} = userData() || {}
-  console.log({books})
+  
+  useEffect(() => {
+    updateBooks();
+    console.log('my books useEffect:',{books});
+  }, []);
+
   return (
-    
     <div>
       <CustomNav />
       <h2>Welcome {username}</h2>
-      <h3 style={{ textAlign: 'center' }}>Checkout our new books</h3>
-      {books && books.length > 0 ? ( // Проверяем, что books существует и не пустой массив перед использованием метода map
-        books.map((book, index) => (
-          <div key={book.id}>
-            {book.id}
-            <h3 >{book.attributes.title}</h3>
-            <p>{book.attributes.description}</p>
-            {book.attributes.cover && book.attributes.cover.data ? (
-              <img src={`http://81.200.149.55:1337${book.attributes.cover.data[0].attributes.url}`} alt={book.attributes.title} />
-            ) : (
-              <p>No cover available</p>
-            )}
-            <p>Status: {book.attributes.taken ? 'Taken' : 'Available'}</p>
-            <img src="" alt="" />
-          </div>
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
-
-      
+      <h3 style={{ textAlign: 'center' }}>Your taken books:</h3>
+      <BookList books={books} />
+      <QRCodeScanner updateBooks={updateBooks}/>
     </div>
   )
+  
 }
 
 export default Home;

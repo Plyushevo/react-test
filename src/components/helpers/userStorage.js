@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const storeUser = (data) => {
   localStorage.setItem(
@@ -11,8 +9,6 @@ export const storeUser = (data) => {
   )
 }
 
-
-
 export const userData = () => {
   const stringifiedUser = localStorage.getItem("user") || "";
   if (stringifiedUser){
@@ -21,18 +17,3 @@ export const userData = () => {
     return {}
   }
 }
-
-export const Protector = ({Component}) => {
-  const navigate = useNavigate()
-
-  const { jwt } = userData()
-
-  useEffect(() => {
-    if (!jwt) {
-      navigate('/login')
-    }
-  }, [navigate, jwt])
-
-  return <Component/>
-}
-
